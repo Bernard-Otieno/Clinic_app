@@ -5,6 +5,7 @@ Entry point for the FastAPI application — this is the file uvicorn runs to sta
 """
 from fastapi import FastAPI, Depends
 from sqlalchemy import text
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from app.routers import doctors
 from app.database import get_db
@@ -27,7 +28,7 @@ app.mount("/app", StaticFiles(directory="static", html=True), name="frontend")
 
 @app.get("/")
 def root():
-    return {"status": "ok", "service": "clinic-booking-api"}
+    return RedirectResponse(url="/app/")
 
 
 @app.get("/health/db")
