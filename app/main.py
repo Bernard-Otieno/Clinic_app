@@ -1,19 +1,29 @@
 """
 Entry point for the FastAPI application — this is the file uvicorn runs to start the server.
 
-Right now it only proves the app boots and can reach the database. Real endpoints
-(appointments, doctors, patients) will be added as their own router files in
-app/routers/, then wired in here with app.include_router(...).
-"""
 
+"""
 from fastapi import FastAPI, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
-
+from app.routers import doctors
 from app.database import get_db
+from app.routers import appointments
+#------------------------------------------------fornt end--------------------------------------------------------#
+from fastapi.staticfiles import StaticFiles
+from app.routers import patients
+#------------------------------------------------fornt end--------------------------------------------------------#
 
 app = FastAPI(title="Clinic Booking API")
+app.include_router(doctors.router)
+app.include_router(appointments.router)
 
+
+#------------------------------------------------fornt end--------------------------------------------------------#
+
+app.include_router(patients.router)
+app.mount("/app", StaticFiles(directory="static", html=True), name="frontend")
+#------------------------------------------------fornt end--------------------------------------------------------#
 
 @app.get("/")
 def root():

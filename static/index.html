@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinic Scheduler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/app/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Clinic Scheduler</h1>
+    <label class="doctor-picker">
+      <span>Doctor</span>
+      <select id="doctor-select"></select>
+    </label>
+  </header>
+
+  <main>
+    <div class="week-nav">
+      <button id="prev-week" aria-label="Previous week">&larr;</button>
+      <span id="week-label"></span>
+      <button id="next-week" aria-label="Next week">&rarr;</button>
+    </div>
+    <div id="week-grid" class="week-grid"></div>
+  </main>
+
+  <div id="booking-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>Confirm booking</h2>
+      <p id="modal-slot-label" class="slot-label"></p>
+      <label class="field">
+        <span>Patient</span>
+        <select id="patient-select"></select>
+      </label>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn btn-ghost">Cancel</button>
+        <button id="modal-confirm" class="btn btn-primary">Book slot</button>
+      </div>
+      <p id="modal-error" class="error hidden"></p>
+    </div>
+  </div>
+
+  <script src="/app/script.js"></script>
+</body>
+</html>
