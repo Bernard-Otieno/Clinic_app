@@ -91,3 +91,9 @@ def test_rejects_unknown_doctor(db_session):
     with pytest.raises(HTTPException) as exc_info:
         validate_slot(db_session, uuid.uuid4(), next_monday_at(10, 0))
     assert exc_info.value.status_code == 404
+
+def test_rejects_booking_less_than_one_hour_out(db_session, test_doctor):
+    too_soon = datetime.now() + timedelta(minutes=30)
+    with pytest.raises(HTTPException) as exc_info:
+        validate_slot(db_session, test_doctor.id, too_soon)
+    assert exc_info.value.status_code == 400
