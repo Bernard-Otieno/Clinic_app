@@ -36,7 +36,7 @@ def book_appointment(payload: AppointmentCreate, db: Session = Depends(get_db)):
     db.refresh(appointment)
     return appointment
 
-
+#7
 @router.patch("/{appointment_id}/cancel", response_model=AppointmentOut)
 def cancel_appointment(appointment_id: str, payload: AppointmentCancel, db: Session = Depends(get_db)):
     appointment = db.query(Appointment).filter(Appointment.id == appointment_id).first()

@@ -7,6 +7,8 @@ from fastapi import HTTPException
 from app.services.booking import validate_slot
 from app.models import Appointment
 
+#variables form conftest.py
+
 
 def next_monday_at(hour, minute=0):
     """Always returns a Monday in the future, so tests never start failing just because time passed."""

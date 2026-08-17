@@ -3,7 +3,7 @@ from datetime import time
 
 from app.database import engine, SessionLocal
 from app.models import Doctor, WorkingHours, Patient
-
+#setup for test_booking
 
 @pytest.fixture()
 def db_session():
@@ -11,7 +11,7 @@ def db_session():
     transaction = connection.begin()
     session = SessionLocal(bind=connection)
 
-    yield session
+    yield session #17
 
     session.close()
     transaction.rollback()

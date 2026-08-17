@@ -21,7 +21,7 @@ router = APIRouter(prefix="/patients", tags=["patients"])
 def list_patients(db: Session = Depends(get_db)):
     return db.query(Patient).all()
 
-
+#19
 @router.get("/{patient_id}/appointments", response_model=list[AppointmentOut])
 def get_patient_appointments(patient_id: str, db: Session = Depends(get_db)):
     patient = db.query(Patient).filter(Patient.id == patient_id).first()

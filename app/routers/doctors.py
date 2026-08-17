@@ -11,8 +11,8 @@ router = APIRouter(prefix="/doctors", tags=["doctors"])
 
 SLOT_MINUTES = 30
 
-
-@router.get("/{doctor_id}/availability")
+#6
+@router.get("/{doctor_id}/availability") #15
 def get_availability(
     doctor_id: str,
     date: date_type = Query(..., description="Date to check, e.g. 2026-08-10"),
@@ -51,20 +51,15 @@ def get_availability(
         )
         .all()
     )
-    booked_times = {appt.start_time.time() for appt in booked}
+    booked_times = {appt.start_time.time() for appt in booked} 
 
-    available = [slot for slot in all_slots if slot.time() not in booked_times]
+    available = [slot for slot in all_slots if slot.time() not in booked_times] #9- booked times - all slots
 
     return {
         "doctor_id": doctor_id,
         "date": str(date),
         "available_slots": [slot.strftime("%H:%M") for slot in available],
     }
-
-
-
-
-
 
 
 

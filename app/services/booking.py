@@ -21,12 +21,8 @@ def validate_slot(db: Session, doctor_id, start_time: datetime, exclude_appointm
     if not doctor:
         raise HTTPException(status_code=404, detail="Doctor not found")
 
-    if start_time < datetime.now() + timedelta(minutes=60):
+    if start_time < datetime.now() + timedelta(minutes=60): #20
         raise HTTPException(status_code=400, detail="Appointments must be booked at least 1 hour in advance") ##bonus question
-
-
-
-    
 
     day_of_week = start_time.weekday()
     hours = (

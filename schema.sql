@@ -16,6 +16,7 @@ create table doctors (
 
 -- 2. WORKING_HOURS
 -- One row per doctor per weekday. day_of_week: 0 = Monday ... 6 = Sunday.
+-- #12
 create table working_hours (
     id           uuid primary key default gen_random_uuid(),
     doctor_id    uuid not null references doctors(id) on delete cascade,
@@ -37,6 +38,7 @@ create table patients (
 
 
 -- 4. APPOINTMENTS
+-- #12
 create table appointments (
     id                   uuid primary key default gen_random_uuid(),
     doctor_id            uuid not null references doctors(id) on delete restrict,
@@ -53,6 +55,7 @@ create table appointments (
 -- THE CORE RULE: prevents two BOOKED appointments for the same doctor at the same start_time.
 -- "where status = 'booked'" means cancelled appointments don't count toward the uniqueness check,
 -- so a freed-up slot can be rebooked.
+-- #12
 create unique index uq_doctor_slot_booked
     on appointments (doctor_id, start_time)
     where status = 'booked';
