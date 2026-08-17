@@ -8,7 +8,7 @@ from app.database import Base
 class Doctor(Base):
     __tablename__ = "doctors"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")) #5
     name = Column(String, nullable=False)
     specialty = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -26,8 +26,8 @@ class WorkingHours(Base):
         UniqueConstraint("doctor_id", "day_of_week", name="uq_doctor_weekday"),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))
-    doctor_id = Column(UUID(as_uuid=True), ForeignKey("doctors.id", ondelete="CASCADE"), nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))#5
+    doctor_id = Column(UUID(as_uuid=True), ForeignKey("doctors.id", ondelete="CASCADE"), nullable=False)#10
     day_of_week = Column(SmallInteger, nullable=False)
     start_time = Column(Time, nullable=False)
     end_time = Column(Time, nullable=False)
@@ -39,7 +39,7 @@ class WorkingHours(Base):
 class Patient(Base):
     __tablename__ = "patients"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))#5
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -48,7 +48,7 @@ class Patient(Base):
 
 
 
-
+#8
 class Appointment(Base):
     __tablename__ = "appointments"
     __table_args__ = (
@@ -60,15 +60,15 @@ class Appointment(Base):
         ),
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))
-    doctor_id = Column(UUID(as_uuid=True), ForeignKey("doctors.id", ondelete="RESTRICT"), nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))#5
+    doctor_id = Column(UUID(as_uuid=True), ForeignKey("doctors.id", ondelete="RESTRICT"), nullable=False)#10
     patient_id = Column(UUID(as_uuid=True), ForeignKey("patients.id", ondelete="RESTRICT"), nullable=False)
     start_time = Column(DateTime(timezone=True), nullable=False)
     end_time = Column(DateTime(timezone=True), nullable=False)
     status = Column(String, nullable=False, server_default="booked")
     cancellation_reason = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now()) #13
 
     doctor = relationship("Doctor", back_populates="appointments")
     patient = relationship("Patient", back_populates="appointments")
